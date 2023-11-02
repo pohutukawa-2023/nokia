@@ -1,8 +1,12 @@
+import { Outlet } from 'react-router-dom'
+
 function App() {
   return (
     <div>
-      <h1>App</h1>
-      <p>React development has begun!</p>
+      <h1>Nokia App</h1>
+      <div>
+        <Outlet />
+      </div>
     </div>
   )
 }
