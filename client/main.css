@@ -3,3 +3,13 @@ body {
   color: #0a1520;
   font-family: 'Poppins', sans-serif;
 }
+
+.cell {
+  height: 10px;
+  width: 10px;
+  background-color: lightgray;
+}
+
+.cellSnake {
+  background-color: green;
+}

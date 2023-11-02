@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 function Game() {
-  const numRows = 20
-  const numCols = 100
+  const numRows = 30
+  const numCols = 30
 
   const [grid, setGrid] = useState<number[][]>([])
-  const [snake, setSnake] = useState<number[][]>([[0], [0]])
+  const [snake, setSnake] = useState<number[][]>([[1, 0]])
 
   useEffect(() => {
     const newGrid = []
@@ -39,12 +39,12 @@ function Game() {
                 {row.map((cell, colIndex) => (
                   <td
                     key={colIndex}
-                    className={` cell ${
-                      snake === rowIndex * numCols + colIndex ? 'snake' : '.'
+                    className={`cell${
+                      snake[0][0] === rowIndex && snake[0][1] === colIndex
+                        ? 'Snake'
+                        : ''
                     }`}
-                  >
-                    .
-                  </td>
+                  ></td>
                 ))}
               </tr>
             ))}
