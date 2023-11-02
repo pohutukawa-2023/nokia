@@ -6,6 +6,7 @@ function Game() {
   const numCols = 100
 
   const [grid, setGrid] = useState<number[][]>([])
+  const [snake, setSnake] = useState<number[][]>([[0], [0]])
 
   useEffect(() => {
     const newGrid = []
@@ -17,7 +18,15 @@ function Game() {
       newGrid.push(row)
     }
     setGrid(newGrid)
+    console.log(typeof newGrid)
   }, [])
+
+  // function getSnake() {
+  //   const cells = document.getElementsByTagName('TD')
+  //   const rowPos = 0
+  //   const colPos = 0
+  //   const playerPosition = cells[(rowPos, colPos)]
+  // }
 
   return (
     <div>
@@ -28,7 +37,12 @@ function Game() {
             {grid.map((row, rowIndex) => (
               <tr key={rowIndex}>
                 {row.map((cell, colIndex) => (
-                  <td key={colIndex} className="gridCell">
+                  <td
+                    key={colIndex}
+                    className={` cell ${
+                      snake === rowIndex * numCols + colIndex ? 'snake' : '.'
+                    }`}
+                  >
                     .
                   </td>
                 ))}
