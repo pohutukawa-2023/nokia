@@ -13,7 +13,8 @@ function Game() {
   const numRows = 30
   const numCols = 30
   const [grid, setGrid] = useState<number[][]>([])
-  const [snake, setSnake] = useState<number[][]>([[5, 5]])
+  const [snake, setSnake] = useState<number[][]>([[0, 0]])
+  const [direction, setDirection] = useState('right')
   //set food position
   const rowNumber = getRandomNumber(1, numRows)
   const columnNumber = getRandomNumber(1, numCols)
@@ -36,20 +37,19 @@ function Game() {
     const handleKeyPress = (e: KeyboardEvent) => {
       e.preventDefault()
       const newSnake = [...snake]
-      const [snakeRow, snakeCol] = newSnake[0]
 
       switch (e.key) {
         case 'ArrowUp':
-          newSnake[0] = [snakeRow - 1, snakeCol]
+          setDirection('up')
           break
         case 'ArrowDown':
-          newSnake[0] = [snakeRow + 1, snakeCol]
+          setDirection('down')
           break
         case 'ArrowLeft':
-          newSnake[0] = [snakeRow, snakeCol - 1]
+          setDirection('left')
           break
         case 'ArrowRight':
-          newSnake[0] = [snakeRow, snakeCol + 1]
+          setDirection('right')
           break
         default:
           break
@@ -58,10 +58,34 @@ function Game() {
     }
 
     window.addEventListener('keydown', handleKeyPress)
+    const moveSnakeInterval = setInterval(() => {
+      const newSnake = [...snake]
+      const [snakeRow, snakeCol] = newSnake[0]
+
+      switch (direction) {
+        case 'up':
+          newSnake[0] = [snakeRow - 1, snakeCol]
+          break
+        case 'down':
+          newSnake[0] = [snakeRow + 1, snakeCol]
+          break
+        case 'left':
+          newSnake[0] = [snakeRow, snakeCol - 1]
+          break
+        case 'right':
+          newSnake[0] = [snakeRow, snakeCol + 1]
+          break
+
+        default:
+          break
+      }
+      setSnake(newSnake)
+    }, 50)
+
     return () => {
-      window.removeEventListener('keydown', handleKeyPress)
+      clearInterval(moveSnakeInterval)
     }
-  }, [snake])
+  }, [snake, direction])
 
   return (
     <div>
