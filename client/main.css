@@ -3,3 +3,14 @@ body {
   color: #0a1520;
   font-family: 'Poppins', sans-serif;
 }
+
+.cell {
+  background-color: lightgray;
+  width: 10px;
+  height: 10px;
+  border: none;
+}
+
+.cellFood {
+  background-color: red;
+}
