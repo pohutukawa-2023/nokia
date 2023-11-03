@@ -14,10 +14,12 @@ function Game() {
   const numCols = 30
   const [grid, setGrid] = useState<number[][]>([])
   const [snake, setSnake] = useState<number[][]>([[5, 5]])
-  //set food position
+  // set food position
   const rowNumber = getRandomNumber(1, numRows)
   const columnNumber = getRandomNumber(1, numCols)
   const [food, setFood] = useState<number[][]>([[rowNumber, columnNumber]])
+
+  const [score, setScore] = useState(0)
 
   useEffect(() => {
     const newGrid = []
@@ -63,6 +65,22 @@ function Game() {
     }
   }, [snake])
 
+  // // newfood funciton
+
+  function generateFood() {
+    const rowNumber = getRandomNumber(1, numRows)
+    const columnNumber = getRandomNumber(1, numCols)
+    setFood([[rowNumber, columnNumber]])
+    setScore(score + 1)
+  }
+
+  const [snakeRow, snakeCol] = snake[0]
+  const [foodRow, foodCol] = food[0]
+
+  if (snakeRow === foodRow && snakeCol === foodCol) {
+    generateFood()
+  }
+
   return (
     <div>
       <h2>Main Gameplay Page</h2>
@@ -90,6 +108,7 @@ function Game() {
           </tbody>
         </table>
       </div>
+      <div>Score: {score}</div>
       <div>
         <Link to={'/'}>
           <button>Go Back</button>
@@ -106,3 +125,7 @@ console.log()
 //
 
 export default Game
+
+// {if(rowNumber === snakeRow && columnNumber === snakeCol){
+//   setFood(getRandomNumber(1, numRows), getRandomNumber(1, numCols))
+// }}
