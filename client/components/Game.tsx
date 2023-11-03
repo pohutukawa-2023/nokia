@@ -150,7 +150,12 @@ function Game() {
         </h3>
       </div>
       <div>
-        <table>
+        <h3>
+          Score: {score} || Time: {secondsLeft}
+        </h3>
+      </div>
+      <div>
+        <table className="game-body">
           <tbody>
             {grid.map((row, rowIndex) => (
               <tr key={rowIndex}>
@@ -173,9 +178,10 @@ function Game() {
           </tbody>
         </table>
       </div>
+      <div className="score">Score: {score}</div>
       <div>
         <Link to={'/'}>
-          <button>Go Back</button>
+          <button className="back-btn">Go Back</button>
         </Link>
       </div>
     </div>
