@@ -11,7 +11,6 @@ function getRandomNumber(min: number, max: number) {
 function Game() {
   const numRows = 30
   const numCols = 30
-  const game = true
   const [grid, setGrid] = useState<number[][]>([])
   const [snake, setSnake] = useState<number[][]>([[0, 0]])
   const [direction, setDirection] = useState('right')
@@ -150,11 +149,6 @@ function Game() {
         </h3>
       </div>
       <div>
-        <h3>
-          Score: {score} || Time: {secondsLeft}
-        </h3>
-      </div>
-      <div>
         <table className="game-body">
           <tbody>
             {grid.map((row, rowIndex) => (
@@ -188,14 +182,6 @@ function Game() {
   )
 }
 
-//getting a value  and console log from the table ??
-console.log()
-//
-
 //
 
 export default Game
-
-// {if(rowNumber === snakeRow && columnNumber === snakeCol){
-//   setFood(getRandomNumber(1, numRows), getRandomNumber(1, numCols))
-// }}
