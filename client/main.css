@@ -3,13 +3,16 @@ body {
   color: #0a1520;
   font-family: 'Poppins', sans-serif;
   text-align: center;
+
   font-size: 25pt;
+
+
 }
 
 .cell {
   background-color: lightgray;
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   border: none;
 }
 
