@@ -85,7 +85,7 @@ function Game() {
     <div>
       <h2>Main Gameplay Page</h2>
       <div>
-        <table>
+        <table className="game-body">
           <tbody>
             {grid.map((row, rowIndex) => (
               <tr key={rowIndex}>
@@ -108,10 +108,10 @@ function Game() {
           </tbody>
         </table>
       </div>
-      <div>Score: {score}</div>
+      <div className="score">Score: {score}</div>
       <div>
         <Link to={'/'}>
-          <button>Go Back</button>
+          <button className="back-btn">Go Back</button>
         </Link>
       </div>
     </div>
