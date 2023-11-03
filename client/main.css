@@ -4,9 +4,13 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-.food {
-  position: absolute;
-  width: 1.5%;
-  height: 1.5%;
+.cell {
+  background-color: lightgray;
+  width: 10px;
+  height: 10px;
+  border: none;
+}
+
+.cellFood {
   background-color: red;
 }

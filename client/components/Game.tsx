@@ -11,12 +11,12 @@ function getRandomNumber(min: number, max: number) {
 
 function Game() {
   const numRows = 10
-  const numCols = 10
+  const numCols = 50
 
   const [grid, setGrid] = useState<number[][]>([])
   //set food position
-  const rowNumber = getRandomNumber(1, 10)
-  const columnNumber = getRandomNumber(1, 10)
+  const rowNumber = getRandomNumber(1, numRows)
+  const columnNumber = getRandomNumber(1, numCols)
   const [food, setFood] = useState<number[][]>([[rowNumber, columnNumber]])
 
   useEffect(() => {
@@ -42,14 +42,12 @@ function Game() {
                 {row.map((cell, colIndex) => (
                   <td
                     key={colIndex}
-                    className={`cell ${
+                    className={`cell${
                       food[0][0] === rowIndex && food[0][1] === colIndex
-                        ? 'food'
+                        ? 'Food'
                         : ''
                     }`}
-                  >
-                    .
-                  </td>
+                  ></td>
                 ))}
               </tr>
             ))}

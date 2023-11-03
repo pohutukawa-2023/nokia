@@ -1,5 +1,7 @@
 import React, { cloneElement, useEffect, useState } from 'react'
-import Game from './Game'
+import { Postion } from '../Position'
+
+interface Props {}
 
 function getRandomNumber(min: number, max: number) {
   min = Math.ceil(min)
@@ -7,26 +9,20 @@ function getRandomNumber(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-// function Food() {
-//   const rowNumber = getRandomNumber(1, 20)
-//   const columnNumber = getRandomNumber(1, 100)
-//   const foodPosition = (rowNumber, columnNumber)
+function Food() {
+  //set food position
+  const rowNumber = getRandomNumber(1, numRows)
+  const columnNumber = getRandomNumber(1, numCols)
+  const [food, setFood] = useState<number[][]>([[rowNumber, columnNumber]])
 
-//   return (
-//     foodPosition
-//   )
-
-// }
-
-// export default Food
-
-const Food = () => {
-  const style = {
-    rowNumber: `${getRandomNumber(1, 20)}`,
-    columnNumber: `${getRandomNumber(1, 100)}`,
-  }
-
-  return <div className="food" style={style}></div>
+  return (
+    <td
+      key={colIndex}
+      className={`cell ${
+        food[0][0] === rowIndex && food[0][1] === colIndex ? 'food' : ''
+      }`}
+    ></td>
+  )
 }
 
 export default Food
