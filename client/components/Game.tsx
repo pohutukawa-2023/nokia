@@ -36,7 +36,6 @@ function Game() {
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       e.preventDefault()
-      const newSnake = [...snake]
 
       switch (e.key) {
         case 'ArrowUp':
@@ -54,31 +53,56 @@ function Game() {
         default:
           break
       }
-      setSnake(newSnake)
     }
 
+    // if (snakeRow || snakeCol > snake[30][30]) {\
+    // if (
+    //   (newSnake[0] >= 0 && newSnake[0] < numRows) ||
+    //   (newSnake[1] >= 0 && newSnake[1] < numCols)
+    // ) {
     window.addEventListener('keydown', handleKeyPress)
     const moveSnakeInterval = setInterval(() => {
       const newSnake = [...snake]
       const [snakeRow, snakeCol] = newSnake[0]
 
       switch (direction) {
-        case 'up':
-          newSnake[0] = [snakeRow - 1, snakeCol]
+        case 'up': {
+          if (snakeRow < numRows) {
+            newSnake[0] = [snakeRow - 1, snakeCol]
+          } else {
+            newSnake[0] = [0, snakeCol]
+          }
           break
-        case 'down':
-          newSnake[0] = [snakeRow + 1, snakeCol]
+        }
+        case 'down': {
+          if (snakeRow < numRows) {
+            newSnake[0] = [snakeRow + 1, snakeCol]
+          } else {
+            newSnake[0] = [0, snakeCol]
+          }
           break
-        case 'left':
-          newSnake[0] = [snakeRow, snakeCol - 1]
+        }
+        case 'left': {
+          if (snakeCol < numCols) {
+            newSnake[0] = [snakeRow, snakeCol - 1]
+          } else {
+            newSnake[0] = [snakeRow, 0]
+          }
           break
-        case 'right':
-          newSnake[0] = [snakeRow, snakeCol + 1]
+        }
+        case 'right': {
+          if (snakeCol < numCols) {
+            newSnake[0] = [snakeRow, snakeCol + 1]
+          } else {
+            newSnake[0] = [snakeRow, 0]
+          }
           break
+        }
 
         default:
           break
       }
+
       setSnake(newSnake)
     }, 50)
 
@@ -86,6 +110,11 @@ function Game() {
       clearInterval(moveSnakeInterval)
     }
   }, [snake, direction])
+  //  } else {
+  //     finalSnake = [0, snakeCol - 1]
+  //   }
+
+  // document.getElementsByClassName('cellSnake').innerHTML('🐍')
 
   return (
     <div>

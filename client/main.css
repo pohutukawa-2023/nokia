@@ -2,12 +2,13 @@ body {
   background-color: #faf8f1;
   color: #0a1520;
   font-family: 'Poppins', sans-serif;
+  text-align: center;
 }
 
 .cell {
   background-color: lightgray;
-  width: 10px;
-  height: 10px;
+  width: 30px;
+  height: 30px;
   border: none;
 }
 
