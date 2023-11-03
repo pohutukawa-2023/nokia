@@ -11,6 +11,7 @@ function getRandomNumber(min: number, max: number) {
 function Game() {
   const numRows = 30
   const numCols = 30
+  const game = true
   const [grid, setGrid] = useState<number[][]>([])
   const [snake, setSnake] = useState<number[][]>([[0, 0]])
   const [direction, setDirection] = useState('right')
@@ -21,6 +22,9 @@ function Game() {
 
   const [score, setScore] = useState(0)
 
+  const [secondsLeft, setSceondsLeft] = useState(60)
+
+  //setting the grid
   useEffect(() => {
     const newGrid = []
     for (let i = 0; i < numRows; i++) {
@@ -33,7 +37,21 @@ function Game() {
     setGrid(newGrid)
   }, [])
 
+  //set timers
+  useEffect(() => {
+    if (secondsLeft <= 0) {
+      alert('Game Over!')
+      // game = false
+    } else {
+      const timeout = setTimeout(() => {
+        setSceondsLeft(secondsLeft - 1)
+      }, 1000)
+      return () => clearTimeout(timeout)
+    }
+  }, [secondsLeft])
+
   // user input function
+
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       e.preventDefault()
@@ -82,7 +100,7 @@ function Game() {
           if (snakeCol < numCols) {
             newSnake[0] = [snakeRow, snakeCol - 1]
           } else {
-            newSnake[0] = [snakeRow, 0]
+            newSnake[0] = [snakeRow, 30]
           }
           break
         }
@@ -100,7 +118,7 @@ function Game() {
       }
 
       setSnake(newSnake)
-    }, 50)
+    }, 80)
 
     return () => {
       clearInterval(moveSnakeInterval)
@@ -127,6 +145,11 @@ function Game() {
     <div>
       <h2>Main Gameplay Page</h2>
       <div>
+        <h3>
+          Score: {score} || Time: {secondsLeft}
+        </h3>
+      </div>
+      <div>
         <table>
           <tbody>
             {grid.map((row, rowIndex) => (
@@ -150,7 +173,6 @@ function Game() {
           </tbody>
         </table>
       </div>
-      <div>Score: {score}</div>
       <div>
         <Link to={'/'}>
           <button>Go Back</button>
