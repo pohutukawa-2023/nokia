@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Food from './Food'
 
 // random number for food
 function getRandomNumber(min: number, max: number) {
@@ -13,8 +12,9 @@ function Game() {
   const numRows = 30
   const numCols = 30
   const [grid, setGrid] = useState<number[][]>([])
-  const [snake, setSnake] = useState<number[][]>([[5, 5]])
-  // set food position
+  const [snake, setSnake] = useState<number[][]>([[0, 0]])
+  const [direction, setDirection] = useState('right')
+  //set food position
   const rowNumber = getRandomNumber(1, numRows)
   const columnNumber = getRandomNumber(1, numCols)
   const [food, setFood] = useState<number[][]>([[rowNumber, columnNumber]])
@@ -37,33 +37,75 @@ function Game() {
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       e.preventDefault()
-      const newSnake = [...snake]
-      const [snakeRow, snakeCol] = newSnake[0]
 
       switch (e.key) {
         case 'ArrowUp':
-          newSnake[0] = [snakeRow - 1, snakeCol]
+          setDirection('up')
           break
         case 'ArrowDown':
-          newSnake[0] = [snakeRow + 1, snakeCol]
+          setDirection('down')
           break
         case 'ArrowLeft':
-          newSnake[0] = [snakeRow, snakeCol - 1]
+          setDirection('left')
           break
         case 'ArrowRight':
-          newSnake[0] = [snakeRow, snakeCol + 1]
+          setDirection('right')
           break
         default:
           break
       }
-      setSnake(newSnake)
     }
 
     window.addEventListener('keydown', handleKeyPress)
+    const moveSnakeInterval = setInterval(() => {
+      const newSnake = [...snake]
+      const [snakeRow, snakeCol] = newSnake[0]
+
+      switch (direction) {
+        case 'up': {
+          if (snakeRow < numRows) {
+            newSnake[0] = [snakeRow - 1, snakeCol]
+          } else {
+            newSnake[0] = [0, snakeCol]
+          }
+          break
+        }
+        case 'down': {
+          if (snakeRow < numRows) {
+            newSnake[0] = [snakeRow + 1, snakeCol]
+          } else {
+            newSnake[0] = [0, snakeCol]
+          }
+          break
+        }
+        case 'left': {
+          if (snakeCol < numCols) {
+            newSnake[0] = [snakeRow, snakeCol - 1]
+          } else {
+            newSnake[0] = [snakeRow, 0]
+          }
+          break
+        }
+        case 'right': {
+          if (snakeCol < numCols) {
+            newSnake[0] = [snakeRow, snakeCol + 1]
+          } else {
+            newSnake[0] = [snakeRow, 0]
+          }
+          break
+        }
+
+        default:
+          break
+      }
+
+      setSnake(newSnake)
+    }, 50)
+
     return () => {
-      window.removeEventListener('keydown', handleKeyPress)
+      clearInterval(moveSnakeInterval)
     }
-  }, [snake])
+  }, [snake, direction])
 
   // // newfood funciton
 
