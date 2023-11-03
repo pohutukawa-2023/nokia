@@ -11,6 +11,10 @@ body {
   border: none;
 }
 
+.cellSnake {
+  background-color: green;
+}
+
 .cellFood {
   background-color: red;
 }

@@ -10,10 +10,10 @@ function getRandomNumber(min: number, max: number) {
 }
 
 function Game() {
-  const numRows = 10
-  const numCols = 50
-
+  const numRows = 30
+  const numCols = 30
   const [grid, setGrid] = useState<number[][]>([])
+  const [snake, setSnake] = useState<number[][]>([[5, 5]])
   //set food position
   const rowNumber = getRandomNumber(1, numRows)
   const columnNumber = getRandomNumber(1, numCols)
@@ -31,6 +31,38 @@ function Game() {
     setGrid(newGrid)
   }, [])
 
+  // user input function
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      e.preventDefault()
+      const newSnake = [...snake]
+      const [snakeRow, snakeCol] = newSnake[0]
+
+      switch (e.key) {
+        case 'ArrowUp':
+          newSnake[0] = [snakeRow - 1, snakeCol]
+          break
+        case 'ArrowDown':
+          newSnake[0] = [snakeRow + 1, snakeCol]
+          break
+        case 'ArrowLeft':
+          newSnake[0] = [snakeRow, snakeCol - 1]
+          break
+        case 'ArrowRight':
+          newSnake[0] = [snakeRow, snakeCol + 1]
+          break
+        default:
+          break
+      }
+      setSnake(newSnake)
+    }
+
+    window.addEventListener('keydown', handleKeyPress)
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress)
+    }
+  }, [snake])
+
   return (
     <div>
       <h2>Main Gameplay Page</h2>
@@ -45,6 +77,10 @@ function Game() {
                     className={`cell${
                       food[0][0] === rowIndex && food[0][1] === colIndex
                         ? 'Food'
+                        : ''
+                    }${
+                      snake[0][0] === rowIndex && snake[0][1] === colIndex
+                        ? 'Snake'
                         : ''
                     }`}
                   ></td>
