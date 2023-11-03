@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Food from './Food'
 
 // random number for food
 function getRandomNumber(min: number, max: number) {
@@ -55,11 +54,6 @@ function Game() {
       }
     }
 
-    // if (snakeRow || snakeCol > snake[30][30]) {\
-    // if (
-    //   (newSnake[0] >= 0 && newSnake[0] < numRows) ||
-    //   (newSnake[1] >= 0 && newSnake[1] < numCols)
-    // ) {
     window.addEventListener('keydown', handleKeyPress)
     const moveSnakeInterval = setInterval(() => {
       const newSnake = [...snake]
@@ -110,11 +104,6 @@ function Game() {
       clearInterval(moveSnakeInterval)
     }
   }, [snake, direction])
-  //  } else {
-  //     finalSnake = [0, snakeCol - 1]
-  //   }
-
-  // document.getElementsByClassName('cellSnake').innerHTML('🐍')
 
   return (
     <div>
