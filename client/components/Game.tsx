@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom'
 function Game() {
   const numRows = 30
   const numCols = 30
-
   const [grid, setGrid] = useState<number[][]>([])
-  const [snake, setSnake] = useState<number[][]>([[1, 0]])
+  const [snake, setSnake] = useState<number[][]>([[5, 5]])
 
   useEffect(() => {
     const newGrid = []
@@ -18,15 +17,39 @@ function Game() {
       newGrid.push(row)
     }
     setGrid(newGrid)
-    console.log(typeof newGrid)
   }, [])
 
-  // function getSnake() {
-  //   const cells = document.getElementsByTagName('TD')
-  //   const rowPos = 0
-  //   const colPos = 0
-  //   const playerPosition = cells[(rowPos, colPos)]
-  // }
+  // user input function
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      e.preventDefault()
+      const newSnake = [...snake]
+      const [snakeRow, snakeCol] = newSnake[0]
+
+      switch (e.key) {
+        case 'ArrowUp':
+          newSnake[0] = [snakeRow - 1, snakeCol]
+          break
+        case 'ArrowDown':
+          newSnake[0] = [snakeRow + 1, snakeCol]
+          break
+        case 'ArrowLeft':
+          newSnake[0] = [snakeRow, snakeCol - 1]
+          break
+        case 'ArrowRight':
+          newSnake[0] = [snakeRow, snakeCol + 1]
+          break
+        default:
+          break
+      }
+      setSnake(newSnake)
+    }
+
+    window.addEventListener('keydown', handleKeyPress)
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress)
+    }
+  }, [snake])
 
   return (
     <div>
